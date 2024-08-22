@@ -1,6 +1,14 @@
 
+// Cписок карточек
+export interface IListData {
+  items: ICard[]; //Все карточки
+  getCard(cardId: ICard): void; //Получение карточки по id
+}
+
+export type category = 'другое' | 'софт-скил' | 'дополнительное' | 'кнопка' | 'хард-скил';
+
 // карточка
-interface ICard {
+export interface ICard {
   id: string;
   description: string;
   image: string;
@@ -9,67 +17,40 @@ interface ICard {
   price: number | null;
 }
 
-class Card implements ICard {
-  id: string;
-  description: string;
-  image: string;
-  title: string;
-  category: string;
-  price: number | null;
+//карточка в списке на главной
+export type ICardList = Pick<ICard, 'title' | 'image' | 'category' | 'price'>;
 
-  constructor(data: ICard) {
-    this.id = data.id;
-    this.description = data.description;
-    this.title = data.category;
-    this.category = data.category;
-    this.price = data.price;
-  }
-}
+export type ICardBascket = Pick<ICard, 'id' | 'title' | 'price'>;
 
-// Ответ - список карточек
-interface IlistCardResponse<T> {
-  total: number; //кол-во карточек
-  items: ICard[]; //элементы карточек
-}
-
-
-type payment = 'online' | 'offline';
+export type payment = 'online' | 'offline';
 
 //Запрос на заказ
-interface IOrderRequest {
+export interface IOrderBascket {
   payment: payment;
   email: string;
   phone: string;
   address: string;
   total: number;
-  items: string[];
+  items: ICardBascket[];
+  validateEmail(email: string): boolean;
+  validatePhoneNumber(phone: string): boolean;
 }
 
-// Ответ для создания заказа
-interface IOrderResponse {
-  id: string;
-  total: number;
-  price: number | null;
+export interface IBascketData {
+  items: ICardBascket[];
+  addItem(id: ICard): void;
+  removeItem(id: ICard): void;
 }
 
-// Ответ на ошибку
-interface IErrorResponse {
+
+//Надо ли тут вообще это
+// Ошибку
+export interface IErrorResponse {
   error: string;
 }
 
-class OrderResponse implements IOrderResponse, IErrorResponse  {
+// 200
+export interface ISuccessResponse {
   id: string;
   total: number;
-  price: number | null;
-
-  error: string;
-
-  constructor(data: IOrderResponse & IErrorResponse) {
-    this.id = data.id;
-    this.total = data.total;
-    this.price = data.price;
-    this.error = data.error;
-  }
 }
-
-type CategoryType = 'другое' | 'софт-скил' | 'дополнительное' | 'кнопка' | 'хард-скил';
