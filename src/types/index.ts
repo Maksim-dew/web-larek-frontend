@@ -1,14 +1,14 @@
 
 // Cписок карточек
-export interface IListData {
-  items: ICard[]; //Все карточки
-  getCard(cardId: ICard): void; //Получение карточки по id
-}
+// export interface IListData {
+//   items: IProduct[]; //Все карточки
+//   getCard(cardId: IProduct): void; //Получение карточки по id
+// }
 
-export type category = 'другое' | 'софт-скил' | 'дополнительное' | 'кнопка' | 'хард-скил';
+export type category = 'другое' | 'софт-скил' | 'дополнительное' | 'кнопка' | 'хард-скил'; //got
 
 // карточка
-export interface ICard {
+export interface IProduct { //got
   id: string;
   description: string;
   image: string;
@@ -18,39 +18,61 @@ export interface ICard {
 }
 
 //карточка в списке на главной
-export type ICardList = Pick<ICard, 'title' | 'image' | 'category' | 'price'>;
+export type IProductList = Pick<IProduct, 'title' | 'image' | 'category' | 'price'>; 
 
-export type ICardBascket = Pick<ICard, 'id' | 'title' | 'price'>;
+//карточка в списке корзины
+export type IProductBascket = Pick<IProduct, 'id' | 'title' | 'price'>; 
 
-export type payment = 'online' | 'offline';
+// export type payment = 'online' | 'offline';
 
 //Запрос на заказ
-export interface IOrderBascket {
-  payment: payment;
+export interface IOrder  extends IOrderForm, IContactsForm {
+  items: IProductBascket[];
+  total: number;
+}
+
+export interface IContactsForm { 
   email: string;
   phone: string;
+}
+
+export interface IOrderForm {
+  payment: string;
   address: string;
-  total: number;
-  items: ICardBascket[];
-  validateEmail(email: string): boolean;
-  validatePhoneNumber(phone: string): boolean;
 }
 
-export interface IBascketData {
-  items: ICardBascket[];
-  addItem(id: ICard): void;
-  removeItem(id: ICard): void;
-}
-
-
-//Надо ли тут вообще это
-// Ошибку
-export interface IErrorResponse {
-  error: string;
-}
-
-// 200
-export interface ISuccessResponse {
+export interface IOrderSuccess {
   id: string;
   total: number;
+}
+
+export interface IOrderResult extends IOrder {
+  id: string;
+  error?: string
+}
+
+export type ApiPostMethods = 'POST' | 'GET'; //got
+
+export interface IApi { //got
+  baseUrl: string; 
+  getProductList: () => Promise<IProduct[]>;
+  getProduct: (id: string) => Promise<IProduct>;
+  createOrder: (order: IOrder) => Promise<IOrderSuccess>;
+}
+
+export interface IAppState { //got
+  catalog: IProduct[];
+  selectedProduct: IProduct | null;
+  order: IOrder | null;
+  basket: string[] | null;
+  preview: string | null;
+  formErrors: FormErrors;
+}
+
+
+// Тип для обобщенной структуры ошибок в форме
+export type FormErrors = Partial<Record<keyof IOrder, string>>; //got
+
+export interface IActions {
+  onClick: (event: MouseEvent) => void;
 }

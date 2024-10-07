@@ -29,7 +29,14 @@ export class Api {
         return fetch(this.baseUrl + uri, {
             ...this.options,
             method: 'GET'
-        }).then(this.handleResponse);
+        })
+        .then(this.handleResponse)
+        .catch(error => this.responseProcessError(error));
+    }
+
+    responseProcessError(error: string) {
+        console.error(error);
+        return Promise.reject(error);
     }
 
     post(uri: string, data: object, method: ApiPostMethods = 'POST') {

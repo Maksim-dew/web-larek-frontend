@@ -151,6 +151,7 @@ export interface ISuccessResponse {
   - `_title: string;` -    название карточки. 
   - `_category: string;` - категория карточки.
   - `_price: number | null;` - цена товара.
+  
 #### Класс IOrderBascket
 Отвечаетза  хранение в себе данных о корзине. 
   - `_payment: payment;` - содержит в себе информацию об методе оплаты.
