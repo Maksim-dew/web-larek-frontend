@@ -6,10 +6,6 @@ interface ISuccess {
     total: number;
 }
 
-// interface IActions {
-//     onClick: () => void;
-// }
-
 export class Success extends Component<ISuccess> {
     protected _close: HTMLElement;
     protected _description: HTMLElement;

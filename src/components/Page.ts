@@ -11,37 +11,33 @@ interface IPage {
 export class Page extends Component<IPage> {
     protected _counter: HTMLElement;
     protected _gallery: HTMLElement;
-    protected _wrapper: HTMLElement;
+    protected _pageWrapper: HTMLElement;
     protected _basket: HTMLElement;
-
-
+  
     constructor(container: HTMLElement, protected events: IEvents) {
-        super(container);
-
-        this._counter = ensureElement<HTMLElement>('.header__basket-counter');
-        this._gallery = ensureElement<HTMLElement>('.gallery');
-        this._wrapper = ensureElement<HTMLElement>('.page__wrapper');
-        this._basket = ensureElement<HTMLElement>('.header__basket');
-
-        this._basket.addEventListener('click', () => {
-            this.events.emit('bids:open');
-        });
+      super(container);
+      this._counter = ensureElement('.header__basket-counter');
+      this._gallery = ensureElement('.gallery');
+      this._pageWrapper = ensureElement('.page__wrapper');
+      this._basket = ensureElement('.header__basket');
+  
+      this._basket.addEventListener('click', this.handleBasketClick);
     }
-
+  
+    private handleBasketClick = () => {
+      this.events.emit('basket:open');
+    };
+  
     set counter(value: number) {
-        this.setText(this._counter, String(value));
+      this._counter.textContent = String(value);
     }
-
+  
     set gallery(items: HTMLElement[]) {
-        this._gallery.innerHTML = '';
-        this._gallery.append(...items);
+      this._gallery.innerHTML = '';
+      this._gallery.append(...items);
     }
-
+  
     set locked(value: boolean) {
-        if (value) {
-            this._wrapper.classList.add('page__wrapper_locked');
-        } else {
-            this._wrapper.classList.remove('page__wrapper_locked');
-        }
+      this._pageWrapper.classList.toggle('page__wrapper_locked', value);
     }
-}
+  }

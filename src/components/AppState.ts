@@ -27,7 +27,7 @@ export class AppState extends Model<IAppState> {
   catalog: IProduct[];
   selectedProduct: IProduct | null;
   order: IOrder = {
-    items: [] || null,
+    items: [],
     total: 0,
     address: '',
     payment: 'online',
@@ -70,7 +70,7 @@ export class AppState extends Model<IAppState> {
 
   clearOrder(): void {
     this.order = {
-      items: [] || null,
+      items: [],
       total: 0,
       address: '',
       payment: 'online',

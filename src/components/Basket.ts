@@ -10,44 +10,41 @@ interface IBasketView {
 
 export class Basket extends Component<IBasketView> {
     protected _list: HTMLElement;
-    protected _total: HTMLElement;
-    protected _button: HTMLElement;
-
+    protected _price: HTMLElement;
+    protected _button: HTMLButtonElement;
+  
     constructor(container: HTMLElement, protected events: EventEmitter) {
         super(container);
-
+    
         this._list = ensureElement<HTMLElement>('.basket__list', this.container);
-        this._total = this.container.querySelector('.basket__price');
+        this._price = this.container.querySelector('.basket__price');
         this._button = this.container.querySelector('.basket__button');
-
+    
         if (this._button) {
-            this._button.addEventListener('click', () => {
-                events.emit('order:open');
-            });
+          this._button.addEventListener('click', () => {
+            events.emit('order:open');
+          });
         }
-
+    
         this.items = [];
-    }
-
-    set items(items: HTMLElement[]) {
-        if (items.length) {
-            this._list.replaceChildren(...items);
-        } else {
-            this._list.replaceChildren(createElement<HTMLParagraphElement>('p', {
-                textContent: 'Корзина пуста'
-            }));
+        this._button.disabled = true;
+      }
+    
+      toggleButton(isDisabled: boolean) {
+        if (this._button) {
+          this._button.disabled = isDisabled;
         }
-    }
-
-    set selected(items: string[]) {
-        if (items.length) {
-            this.setDisabled(this._button, false);
-        } else {
-            this.setDisabled(this._button, true);
-        }
-    }
-
-    set total(total: number) {
-        this.setText(this._total, `${total.toString()} синапсов`);
+      }
+    
+      set items(items: HTMLElement[]) {
+        const content = items.length
+          ? [...items]
+          : [createElement<HTMLParagraphElement>('p', { textContent: 'Корзина пуста' })];
+    
+        this._list.replaceChildren(...content);
+      }
+    
+      set total(total: number) {
+        this.setText(this._price, `${total.toString()} синапсов`);
       }
 }
