@@ -14,7 +14,7 @@ export class Product extends Model<IProduct> {
   description: string;
 }
 
-export class Order extends Model<IOrder> {
+export interface Order extends Model<IOrder> {
   items: string[];
   total: number;
   address: string;

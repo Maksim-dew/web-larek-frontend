@@ -28,8 +28,12 @@ export class Page extends Component<IPage> {
       this.events.emit('basket:open');
     };
   
+    // set counter(value: number) {
+    //   this._counter.textContent = String(value);
+    // }
+
     set counter(value: number) {
-      this._counter.textContent = String(value);
+      this.setText(this._counter,String(value));
     }
   
     set gallery(items: HTMLElement[]) {

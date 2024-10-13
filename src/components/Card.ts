@@ -1,6 +1,7 @@
 import { IProduct, IActions} from "../types";
 import { ensureElement } from "../utils/utils";
 import { Component } from "./base/component";
+import { ProductCategory } from "../utils/constants";
 
 export interface ICards extends IProduct{
     index?: string;
@@ -79,6 +80,7 @@ export interface ICards extends IProduct{
 
     set category(value:  string) {
         this.setText(this._category, value);
+        this._category.classList.add(ProductCategory[value])
     }
 
     get category(): string {
