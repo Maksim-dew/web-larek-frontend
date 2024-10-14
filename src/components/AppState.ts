@@ -14,15 +14,6 @@ export class Product extends Model<IProduct> {
   description: string;
 }
 
-// export interface Order extends Model<IOrder> {
-//   items: string[];
-//   total: number;
-//   address: string;
-//   payment: string;
-//   email: string;
-// 	phone: string;
-// }
-
 export class AppState extends Model<IAppState> {
   catalog: IProduct[];
   selectedProduct: IProduct | null;
