@@ -14,14 +14,14 @@ export class Product extends Model<IProduct> {
   description: string;
 }
 
-export interface Order extends Model<IOrder> {
-  items: string[];
-  total: number;
-  address: string;
-  payment: string;
-  email: string;
-	phone: string;
-}
+// export interface Order extends Model<IOrder> {
+//   items: string[];
+//   total: number;
+//   address: string;
+//   payment: string;
+//   email: string;
+// 	phone: string;
+// }
 
 export class AppState extends Model<IAppState> {
   catalog: IProduct[];
@@ -38,7 +38,6 @@ export class AppState extends Model<IAppState> {
   preview: string | null;
   formErrors: FormErrors = {};
 
-  //метод, меняющий выбранный товар, в случае открытия его описания
   selectProduct (item: IProduct): void { 
     this.preview = item.id;
     this.emitChanges('preview:changed', item);

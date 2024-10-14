@@ -1,6 +1,3 @@
-
-export type category = 'другое' | 'софт-скил' | 'дополнительное' | 'кнопка' | 'хард-скил';
-
 // карточка
 export interface IProduct {
   id: string;

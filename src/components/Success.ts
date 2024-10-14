@@ -24,9 +24,7 @@ export class Success extends Component<ISuccess> {
     get description(): string {
         return this._description.textContent;
     }
-    // set description(value: string) {
-    //     this._description.textContent = `Списано ${value} синапсов`;
-    // }
+
     set description(value: string) {
         this.setText(this._description, String(`Списано ${value} синапсов`));
     }

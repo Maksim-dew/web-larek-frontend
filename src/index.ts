@@ -16,10 +16,6 @@ import { Success } from './components/Success';
 const events = new EventEmitter();
 const api = new ActionApi(CDN_URL, API_URL);
 
-const page = new  Page(
-    document.querySelector('.gallery'), events
-);
-
 // Чтобы мониторить все события, для отладки
 events.onAll(({ eventName, data }) => {
     console.log(eventName, data);

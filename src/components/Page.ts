@@ -27,10 +27,6 @@ export class Page extends Component<IPage> {
     private handleBasketClick = () => {
       this.events.emit('basket:open');
     };
-  
-    // set counter(value: number) {
-    //   this._counter.textContent = String(value);
-    // }
 
     set counter(value: number) {
       this.setText(this._counter,String(value));
